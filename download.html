@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>下载 - 工业革命：新纪元</title>
+    <style>
+        :root {
+            --ms-blue: #0078d4;
+            --ms-dark-blue: #005a9e;
+            --ms-light-gray: #f3f2f1;
+            --ms-gray: #8a8886;
+            --ms-dark-gray: #323130;
+            --ms-white: #ffffff;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', SegoeUI, 'Microsoft YaHei', sans-serif;
+        }
+
+        body {
+            color: var(--ms-dark-gray);
+            background-color: var(--ms-white);
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* 导航栏样式 */
+        header {
+            background-color: var(--ms-white);
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 52px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--ms-dark-gray);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 24px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--ms-dark-gray);
+            font-weight: 400;
+            font-size: 15px;
+            padding: 8px 0;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--ms-blue);
+        }
+
+        .nav-links a:hover::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--ms-blue);
+        }
+
+        /* 汉堡菜单按钮 */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .hamburger span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background-color: var(--ms-dark-gray);
+            transition: all 0.3s ease;
+        }
+
+        /* 移动端导航栏样式 */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 52px;
+                left: 0;
+                width: 100%;
+                background-color: var(--ms-white);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                box-shadow: 0 5px 10px rgba(0,0,0,.1);
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: all 0.3s ease;
+                pointer-events: none;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .nav-links li {
+                margin: 10px 0;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+        }
+
+        /* 主要内容区域 */
+        main {
+            flex: 1;
+            padding: 40px 0;
+        }
+
+        .page-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--ms-dark-gray);
+        }
+
+        .page-header p {
+            font-size: 18px;
+            color: var(--ms-gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* 版本信息区域 */
+        .version-info {
+            margin-bottom: 60px;
+        }
+
+        .current-version {
+            background-color: var(--ms-white);
+            border-radius: 4px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: 1px solid var(--ms-light-gray);
+            margin-bottom: 40px;
+        }
+
+        .version-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .version-title {
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .version-date {
+            color: var(--ms-gray);
+            font-size: 16px;
+        }
+
+        .changelog {
+            margin-bottom: 25px;
+        }
+
+        .changelog h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .changelog ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .changelog li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .changelog li:before {
+            content: "•";
+            color: var(--ms-blue);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .download-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .download-button {
+            display: inline-block;
+            background-color: var(--ms-blue);
+            color: var(--ms-white);
+            padding: 12px 24px;
+            border: none;
+            border-radius: 2px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-align: center;
+        }
+
+        .download-button:hover {
+            background-color: var(--ms-dark-blue);
+        }
+
+        .download-button.secondary {
+            background-color: transparent;
+            color: var(--ms-blue);
+            border: 1px solid var(--ms-blue);
+        }
+
+        .download-button.secondary:hover {
+            background-color: rgba(0, 120, 212, 0.05);
+        }
+
+        /* 历史版本区域 */
+        .previous-versions {
+            margin-bottom: 40px;
+        }
+
+        .version-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .version-item {
+            background-color: var(--ms-white);
+            border-radius: 4px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid var(--ms-light-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .version-details h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .version-date {
+            color: var(--ms-gray);
+            font-size: 14px;
+        }
+
+        .version-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .small-button {
+            display: inline-block;
+            background-color: transparent;
+            color: var(--ms-blue);
+            padding: 8px 16px;
+            border: 1px solid var(--ms-blue);
+            border-radius: 2px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .small-button:hover {
+            background-color: rgba(0, 120, 212, 0.05);
+        }
+
+        /* 页脚样式 */
+        footer {
+            background-color: var(--ms-light-gray);
+            padding: 40px 0;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 24px;
+        }
+
+        .footer-column h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: var(--ms-gray);
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: var(--ms-blue);
+            text-decoration: underline;
+        }
+
+        .copyright {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid #ddd;
+            color: var(--ms-gray);
+            font-size: 14px;
+            text-align: center;
+        }
+         .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin: 5px;
+        }
+
+        .status-up {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+        }
+
+        .status-down {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--error-color);
+        }
+
+        .status-checking {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning-color);
+        }
+
+        .status-restricted {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--info-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">工业革命：新纪元</div>
+                <button class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="./">首页</a></li>
+                    <li><a href="./download.html">下载</a></li>
+                    <li><a href="#">文档</a></li>
+                    <li><a href="#">更新日志</a></li>
+                    <li><a href="#">社区</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主要内容 -->
+    <main>
+        <div class="container">
+            <div class="page-header">
+                <h1>下载工业革命：新纪元</h1>
+                <p>专为低配电脑优化的 Minecraft 科技整合包</p>
+            </div>
+            
+            <!-- 当前版本 -->
+            <section class="version-info">
+                <div class="current-version">
+                    <div class="version-header">
+                        <h2 class="version-title">Beta1.0-d-开发预览版1</h2>
+                        <span class="version-date">2025年11月1日发布</span>
+                    </div>
+                    <span class="status-badge status-checking">开发预览版本</span>
+                    <div class="changelog">
+                        <h3>更新内容</h3>
+                        <ul>
+                            <li> 新增配方：腐肉烧制成皮革</li>
+                            <li>新增彩蛋配方：铜锭烧制3600秒成黄铜锭</li>
+                            <li>新增Mod（beta1.0-c遗落）:</li>
+                                <li>精妙背包</li>
+                                <li>精妙储存</li>
+                            <li>修改任务“储备资源”，删去黄铜锭</li>
+                            <li>任务“铁器时代”新增分支：“获取钻石”-“钻石时代”-“下界！”-....等</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="download-buttons">
+                        <a href="https://github.com/user-attachments/files/23521526/beta1.0-d-kfyl1.zip" class="download-button">下载路线1(Github)</a>
+                        <a href="https://res.gygmxjy.dpdns.org/工业革命：新纪元 beta1.0-d-kfyl1.zip" class="download-button secondary">下载路线2 (res.gygmxjy.dpdns.org)</a>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 历史版本 -->
+            <section class="previous-versions">
+                <h2>历史版本</h2>
+                <div class="version-list">
+                    <div class="version-item">
+                        <div class="version-details">
+                            <h3>beta-1.0-c</h3><span class="status-badge status-up">正式版本</span>
+                            <span class="version-date">2025年10月18日发布</span>
+                        </div>
+                        <div class="version-actions">
+                            <a href="https://github.com/user-attachments/files/23522659/beta1.0-c.zip" class="small-button">下载路线1(Github)</a>
+                            <a href="https://res.gygmxjy.dpdns.org/工业革命：新纪元 beta1.0-c.zip" class="small-button">下载路线2 (res.gygmxjy.dpdns.org)</a>
+                        </div>
+                    </div>
+                    
+                    <!--<div class="version-item">
+                        <div class="version-details">
+                            <h3>v2.0.0 - 电力时代</h3>
+                            <span class="version-date">2024年1月5日发布</span>
+                        </div>
+                        <div class="version-actions">
+                            <a href="#" class="small-button">客户端</a>
+                            <a href="#" class="small-button">服务端</a>
+                        </div>
+                    </div>
+                    
+                    <div class="version-item">
+                        <div class="version-details">
+                            <h3>v1.5.2 - 基础工业</h3>
+                            <span class="version-date">2023年12月1日发布</span>
+                        </div>
+                        <div class="version-actions">
+                            <a href="#" class="small-button">客户端</a>
+                            <a href="#" class="small-button">服务端</a>
+                        </div>
+                    </div>
+                    
+                    <div class="version-item">
+                        <div class="version-details">
+                            <h3>v1.0.0 - 初始发布</h3>
+                            <span class="version-date">2023年10月15日发布</span>
+                        </div>
+                        <div class="version-actions">
+                            <a href="#" class="small-button">客户端</a>
+                            <a href="#" class="small-button">服务端</a>
+                        </div>
+                    </div>
+                </div>-->
+            </section>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>项目资源</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://www.gygmxjy.dpdns.org/download.html">下载整合包</a></li>
+                        <li><a href="https://www.gygmxjy.dpdns.org">项目文档</a></li>
+                        <li><a href="https://www.gygmxjy.dpdns.org">更新日志</a></li>
+                        <li><a href="https://www.gygmxjy.dpdns.org">常见问题</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>服务状态</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://status.gygmxjy.dpdns.org">服务状态监控</a></li>
+                        <li><a href="https://status.gygmxjy.dpdns.org">主域名状态</a></li>
+                        <li><a href="https://status.gygmxjy.dpdns.org">官网状态</a></li>
+                        <li><a href="https://status.gygmxjy.dpdns.org">更新服务状态</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>社区</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://qun.qq.com/universal-share/share?ac=1&authKey=czSe%2B7yp7Swn0H1%2F6y74urzwbp5zO7THdiaNDqd7%2BjCnsNV%2FLm4d7oI0ITt%2Bc9%2BU&busi_data=eyJncm91cENvZGUiOiIxMDYzMTQ4NTM0IiwidG9rZW4iOiJnY3MycEUyUjVaeG44c0PiclVrdUE0b0N1Z3JWZ2ViRkFKUnAxbmJWVm9XRGgxcjZEYjVvcWhkc005UzVyTmFpIiwidWluIjoiMzY2NDU5NzQ3NiJ9&data=m4_vjZhYiv4Gy_xeh2bEiTCXnEWY1cLLZ7zVGRl1SjjhlX2vs4JCxLTdC8PmnBdEi2S7u6t_JLeoCpAoyqXHDw&svctype=4&tempid=h5_group_info">官方QQ群</a></li>
+                        <li><a href="https://b23.tv/9ysOlHc">Bilibili频道</a></li>
+                        <li><a href="https://github.com/minecraft-Yang458/GongYieGeiMing">GitHub仓库</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>关于项目</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://www.gygmxjy.dpdns.org">项目介绍</a></li>
+                        <li><a href="https://www.gygmxjy.dpdns.org">开发团队</a></li>
+                        <li><a href="https://www.gygmxjy.dpdns.org">支持我们</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2024 工业革命：新纪元 项目组。保留所有权利。
+            </div>
+        </div>
+    </footer>
+
+    <!-- 导航栏JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+            
+            if (!hamburger || !navLinks) {
+                console.warn('导航栏元素未找到');
+                return;
+            }
+            
+            // 切换移动端菜单
+            hamburger.addEventListener('click', function() {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+            
+            // 点击导航链接后关闭移动端菜单
+            const navItems = navLinks.querySelectorAll('a');
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+            
+            // 点击页面其他区域关闭移动端菜单
+            document.addEventListener('click', function(event) {
+                const isClickInsideNav = navLinks.contains(event.target) || hamburger.contains(event.target);
+                
+                if (!isClickInsideNav && navLinks.classList.contains('active')) {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                }
+            });
+            
+            // 窗口大小改变时重置菜单状态
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
