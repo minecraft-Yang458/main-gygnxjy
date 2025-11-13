@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS样式类文档 - 工业革命：新纪元</title>
+    <style>
+        :root {
+            --primary-color: #0078d4;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --warning-color: #f59e0b;
+            --info-color: #3b82f6;
+            --light-gray: #f3f2f1;
+            --gray: #8a8886;
+            --dark-gray: #323130;
+            --white: #ffffff;
+            --border-radius: 4px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', SegoeUI, 'Microsoft YaHei', sans-serif;
+        }
+
+        body {
+            color: var(--dark-gray);
+            background-color: var(--white);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: var(--dark-gray);
+            margin: 30px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        h3 {
+            color: var(--dark-gray);
+            margin: 20px 0 10px;
+        }
+
+        .section {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .class-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .class-table th,
+        .class-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .class-table th {
+            background-color: var(--light-gray);
+            font-weight: 600;
+        }
+
+        .class-table tr:hover {
+            background-color: rgba(0, 120, 212, 0.05);
+        }
+
+        .class-name {
+            font-family: monospace;
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .example {
+            background-color: var(--light-gray);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin: 15px 0;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .color-swatch {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            margin-right: 8px;
+            vertical-align: middle;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .code-block {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin: 15px 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            line-height: 1.4;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .tag-global {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--info-color);
+        }
+
+        .tag-layout {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+        }
+
+        .tag-component {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning-color);
+        }
+
+        .tag-utility {
+            background-color: rgba(139, 92, 246, 0.1);
+            color: #8b5cf6;
+        }
+
+        .demo-element {
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px dashed var(--gray);
+            border-radius: var(--border-radius);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin: 5px;
+        }
+
+        .status-up {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+        }
+
+        .status-down {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--error-color);
+        }
+
+        .status-checking {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning-color);
+        }
+
+        .status-restricted {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--info-color);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--light-gray);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .class-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CSS样式类文档</h1>
+            <p>工业革命：新纪元项目 - 网站样式指南</p>
+        </header>
+
+        <div class="section">
+            <h2>CSS变量 (Custom Properties)</h2>
+            <p>项目使用CSS变量来保持设计一致性，便于主题定制。</p>
+            
+            <table class="class-table">
+                <thead>
+                    <tr>
+                        <th>变量名</th>
+                        <th>默认值</th>
+                        <th>用途</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="class-name">--primary-color</span></td>
+                        <td><span class="color-swatch" style="background-color: #0078d4;"></span> #0078d4</td>
+                        <td>主色调，用于按钮、链接和重要元素</td>
+                    </tr>
+                    <tr>
+                        <td><span class="class-name">--success-color</span></td>
+                        <td><span class="color-swatch" style="background-color: #10b981;"></span> #10b981</td>
+                        <td>成功状态颜色</td>
+                    </tr>
+                    <tr>
+                        <td><span class="class-name">--error-color</span></td>
+                        <td><span class="color-swatch" style="background-color: #ef4444;"></span> #ef4444</td>
+                        <td>错误状态颜色</td>
+                    </tr>
+                    <tr>
+                        <td><span class="class-name">--warning-color</span></td>
+                        <td><span class="color-swatch" style="background-color: #f59e0b;"></span> #f59e0b</td>
+                        <td>警告状态颜色</td>
+                    </tr>
+                    <tr>
+                        <td><span class="class-name">--light-gray</span></td>
+                        <td><span class="color-swatch" style="background-color: #f3f2f1;"></span> #f3f2f1</td>
+                        <td>浅灰色背景</td>
+                    </tr>
+                    <tr>
+                        <td><span class="class-name">--gray</span></td>
+                        <td><span class="color-swatch" style="background-color: #8a8886;"></span> #8a8886</td>
+                        <td>中等灰色，用于次要文本</td>
+                    </tr>
+                    <tr>
+                        <td><span class="class-name">--dark-gray</span></td>
+                        <td><span class="color-swatch" style="background-color: #323130;"></span> #323130</td>
+                        <td>深灰色，用于主要文本</td>
+                    </tr>
+                    <tr>
+                        <td><span class="class-name">--white</span></td>
+                        <td><span class="color-swatch" style="background-color: #ffffff; border: 1px solid #e5e5e5;"></span> #ffffff</td>
+                        <td>白色背景</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="example">
+                <h3>使用示例</h3>
+                <div class="code-block">/* 使用CSS变量 */
+.button {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+/* 修改CSS变量 */
+:root {
+    --primary-color: #005a9e; /* 更深的蓝色 */
+}</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>布局类</h2>
+            <p>用于页面结构和布局的CSS类。</p>
+            
+            <table class="class-table">
+                <thead>
+                    <tr>
+                        <th>类名</th>
+                        <th>标签</th>
+                        <th>描述</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="class-name">.container</span></td>
+                        <td><span class="tag tag-layout">布局</span></td>
+                        <td>内容容器，设置最大宽度并居中显示</td>
+                    </tr>
+                    <tr>
+                        <td><span class="class-name">.section</span></td>
+                        <td><span class="tag tag-layout">布局</span></td>
+                        <td>内容区块，带有内边距和阴影</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="example">
+                <h3>使用示例</h3>
+                <div class="demo-element">
+                    <div class="container">
+                        <div class="section">
+                            <h3>这是一个内容区块</h3>
+                            <p>使用.container和.section类创建的结构</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="code-block">&lt;div class="container"&gt;
+    &lt;div class="section"&gt;
+        &lt;h3&gt;这是一个内容区块&lt;/h3&gt;
+        &lt;p&gt;使用.container和.section类创建的结构&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>导航栏类</h2>
+            <p>用于网站导航栏的CSS类。</p>
+            
+            <table class="class-table">
+                <thead>
+                    <tr>
+                        <th>类名</th>
+                        <th>标签</th>
+                        <th>描述</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="class-name">header</span></td>
+                        <td><span class="tag tag-component">组件</span></td>
+                        <td>顶部导航栏容器</td>
+                    </tr>
+                    <tr>
+                        <td><span class="class-name">.nav-links</span></td>
+                        <td><span class="tag tag-component">组件</span></td>
+                        <td>导航链接列表</td>
+                    </tr>
+                    <tr>
+                        <td><span class="class-name">.nav-links.active</span></td>
+                        <td><span class="tag tag-component">组件</span></td>
+                        <td>移动端激活的导航菜单</td>
+                    </tr>
+                    <tr>
+                        <td><span class="class-name">.hamburger</span></td>
+                        <td><span class="tag tag-component">组件</span></td>
+                        <td>移动端汉堡菜单按钮</td>
+                    </tr>
+                    <tr>
+                        <td><span class="class-name">.hamburger.active</span></td>
+                        <td><span class="tag tag-component">组件</span></td>
+                        <td>激活状态的汉堡菜单按钮</td>
+                    </tr>
+                    <tr>
+                        <td><span class="class-name">.logo</span></td>
+                        <td><span class="tag tag-component">组件</span></td>
+                        <td>网站Logo样式</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>内容区块类</h2>
+            <p>用于页面内容展示的CSS类。</p>
+            
+            <table class="class-table">
+                <thead>
+                    <tr>
+                        <th>类名</th>
+                        <th>标签</th>
+                        <th>描述</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="class-name">.hero</span></td>
+                        <td><span class="tag tag-component">组件</span></td>
+                        <td>英雄区块，用于页面顶部展示</td>
+                    </tr>
+                    <tr>
+                        <td><span class="class-name">.features</span></td>
+                        <td><span class="tag tag-component">组件</span></td>
+                        <td>特性展示区域</td>
+                    </tr>
+                    <tr>
+                        <td><span class="class-name">.feature-grid</span></td>
+                        <td><span class="tag tag-component">组件</span></td>
+                        <td>特性网格布局</td>
+                    </tr>
+                    <tr>
+                        <td><span class="class-name">.feature-card</span></td>
+                        <td><span class="tag tag-component">组件</span></td>
+                        <td>特性卡片</td>
+                    </tr>
+                    <tr>
+                        <td><span class="class-name">.feature-icon</span></td>
+                        <td><span class="tag tag-component">组件</span></td>
+                        <td>特性图标样式</td>
+                    </tr>
+                    <tr>
+                        <td><span class="class-name">.section-title</span></td>
+                        <td><span class="tag tag-component">组件</span></td>
+                        <td>区块标题样式</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="example">
+                <h3>使用示例</h3>
+                <div class="demo-element">
+                    <section class="hero">
+                        <div class="container">
+                            <h1>英雄区块标题</h1>
+                            <p>英雄区块描述文本</p>
+                            <a href="#" class="cta-button">行动按钮</a>
+                        </div>
+                    </section>
+                    
+                    <section class="features">
+                        <div class="container">
+                            <h2 class="section-title">特性展示</h2>
+                            <div class="feature-grid">
+                                <div class="feature-card">
+                                    <div class="feature-icon">🔧</div>
+                                    <h3>特性标题</h3>
+                                    <p>特性描述文本</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>按钮与交互类</h2>
+            <p>用于按钮和交互元素的CSS类。</p>
+            
+            <table class="class-table">
+                <thead>
+                    <tr>
+                        <th>类名</th>
+                        <th>标签</th>
+                        <th>描述</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="class-name">.cta-button</span></td>
+                        <td><span class="tag tag-component">组件</span></td>
+                        <td>主要行动号召按钮</td>
+                    </tr>
+                    <tr>
+                        <td><span class="class-name">.status-badge</span></td>
+                        <td><span class="tag tag-component">组件</span></td>
+                        <td>状态徽章基础样式</td>
+                    </tr>
+                    <tr>
+                        <td><span class="class-name">.status-up</span></td>
+                        <td><span class="tag tag-component">组件</span></td>
+                        <td>在线/成功状态徽章</td>
+                    </tr>
+                    <tr>
+                        <td><span class="class-name">.status-down</span></td>
+                        <td><span class="tag tag-component">组件</span></td>
+                        <td>离线/错误状态徽章</td>
+                    </tr>
+                    <tr>
+                        <td><span class="class-name">.status-checking</span></td>
+                        <td><span class="tag tag-component">组件</span></td>
+                        <td>检查中状态徽章</td>
+                    </tr>
+                    <tr>
+                        <td><span class="class-name">.status-restricted</span></td>
+                        <td><span class="tag tag-component">组件</span></td>
+                        <td>受限状态徽章</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="example">
+                <h3>使用示例</h3>
+                <div class="demo-element">
+                    <a href="#" class="cta-button">主要按钮</a>
+                    
+                    <div style="margin-top: 15px;">
+                        <span class="status-badge status-up">在线</span>
+                        <span class="status-badge status-down">离线</span>
+                        <span class="status-badge status-checking">检查中</span>
+                        <span class="status-badge status-restricted">受限</span>
+                    </div>
+                </div>
+                
+                <div class="code-block">&lt;a href="#" class="cta-button"&gt;主要按钮&lt;/a&gt;
+
+&lt;span class="status-badge status-up"&gt;在线&lt;/span&gt;
+&lt;span class="status-badge status-down"&gt;离线&lt;/span&gt;
+&lt;span class="status-badge status-checking"&gt;检查中&lt;/span&gt;
+&lt;span class="status-badge status-restricted"&gt;受限&lt;/span&gt;</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>页脚类</h2>
+            <p>用于网站页脚的CSS类。</p>
+            
+            <table class="class-table">
+                <thead>
+                    <tr>
+                        <th>类名</th>
+                        <th>标签</th>
+                        <th>描述</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="class-name">footer</span></td>
+                        <td><span class="tag tag-component">组件</span></td>
+                        <td>页脚容器</td>
+                    </tr>
+                    <tr>
+                        <td><span class="class-name">.footer-content</span></td>
+                        <td><span class="tag tag-component">组件</span></td>
+                        <td>页脚内容布局</td>
+                    </tr>
+                    <tr>
+                        <td><span class="class-name">.footer-column</span></td>
+                        <td><span class="tag tag-component">组件</span></td>
+                        <td>页脚列</td>
+                    </tr>
+                    <tr>
+                        <td><span class="class-name">.footer-links</span></td>
+                        <td><span class="tag tag-component">组件</span></td>
+                        <td>页脚链接列表</td>
+                    </tr>
+                    <tr>
+                        <td><span class="class-name">.copyright</span></td>
+                        <td><span class="tag tag-component">组件</span></td>
+                        <td>版权信息区域</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>响应式设计</h2>
+            <p>项目使用媒体查询实现响应式设计，确保在不同设备上都有良好的显示效果。</p>
+            
+            <div class="example">
+                <h3>断点设置</h3>
+                <ul>
+                    <li><strong>移动端:</strong> 最大宽度 768px</li>
+                    <li><strong>平板端:</strong> 769px - 1024px</li>
+                    <li><strong>桌面端:</strong> 1025px 及以上</li>
+                </ul>
+                
+                <div class="code-block">/* 移动端样式 */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+    
+    .nav-links {
+        position: fixed;
+        top: 52px;
+        left: 0;
+        width: 100%;
+        background-color: var(--white);
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+        box-shadow: 0 5px 10px rgba(0,0,0,.1);
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: all 0.3s ease;
+        pointer-events: none;
+    }
+    
+    .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: all;
+    }
+}</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>工业革命：新纪元项目 - CSS样式文档</p>
+            <p>最后更新: 2024年</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工业革命：新纪元 - 页面模板</title>
+    <style>
+        /* 基础样式 */
+        :root {
+            --ms-blue: #0078d4;
+            --ms-dark-blue: #005a9e;
+            --ms-light-gray: #f3f2f1;
+            --ms-gray: #8a8886;
+            --ms-dark-gray: #323130;
+            --ms-white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', SegoeUI, 'Microsoft YaHei', sans-serif;
+        }
+
+        body {
+            color: var(--ms-dark-gray);
+            background-color: var(--ms-white);
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* 导航栏样式 */
+        header {
+            background-color: var(--ms-white);
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 52px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--ms-dark-gray);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 24px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--ms-dark-gray);
+            font-weight: 400;
+            font-size: 15px;
+            padding: 8px 0;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--ms-blue);
+        }
+
+        .nav-links a:hover::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--ms-blue);
+        }
+
+        /* 汉堡菜单按钮 */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .hamburger span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background-color: var(--ms-dark-gray);
+            transition: all 0.3s ease;
+        }
+
+        /* 移动端导航栏样式 */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 52px;
+                left: 0;
+                width: 100%;
+                background-color: var(--ms-white);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                box-shadow: 0 5px 10px rgba(0,0,0,.1);
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: all 0.3s ease;
+                pointer-events: none;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .nav-links li {
+                margin: 10px 0;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+        }
+
+        /* 主要内容区域 */
+        main {
+            flex: 1;
+            padding: 40px 0;
+        }
+
+        .page-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--ms-dark-gray);
+        }
+
+        .page-header p {
+            font-size: 18px;
+            color: var(--ms-gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .content {
+            background-color: var(--ms-light-gray);
+            padding: 40px;
+            border-radius: 4px;
+            margin-bottom: 40px;
+        }
+
+        /* 页脚样式 */
+        footer {
+            background-color: var(--ms-light-gray);
+            padding: 40px 0;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 24px;
+        }
+
+        .footer-column h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: var(--ms-gray);
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: var(--ms-blue);
+            text-decoration: underline;
+        }
+
+        .copyright {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid #ddd;
+            color: var(--ms-gray);
+            font-size: 14px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="/" class="logo">工业革命：新纪元</a>
+                <button class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="/">首页</a></li>
+                    <li><a href="/download.html">下载</a></li>
+                    <li><a href="/docs.html">文档</a></li>
+                    <li><a href="/changelog.html">更新日志</a></li>
+                    <li><a href="/community.html">社区</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主要内容 -->
+    <main>
+        <div class="container">
+            <div class="page-header">
+                <h1>页面标题</h1>
+                <p>这里是页面描述或副标题，简要说明此页面的内容和目的。</p>
+            </div>
+            
+            <div class="content">
+                <h2>主要内容区域</h2>
+                <p>这里是页面的主要内容。您可以在这里添加文本、图片、表格或其他任何内容。</p>
+                
+                <h3>子标题示例</h3>
+                <p>更多内容可以放在这里，用于详细说明或展示相关信息。</p>
+                
+                <div style="margin-top: 30px; padding: 20px; background: white; border-radius: 4px;">
+                    <p>这是一个内容区块示例，可以用来突出显示重要信息。</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>资源</h4>
+                    <ul class="footer-links">
+                        <li><a href="/download.html">下载整合包</a></li>
+                        <li><a href="/changelog.html">更新日志</a></li>
+                        <li><a href="/faq.html">常见问题</a></li>
+                        <li><a href="/feedback.html">问题反馈</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>文档</h4>
+                    <ul class="footer-links">
+                        <li><a href="/docs.html">入门指南</a></li>
+                        <li><a href="/quests.html">任务指引</a></li>
+                        <li><a href="/modlist.html">模组列表</a></li>
+                        <li><a href="/config.html">配置说明</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>社区</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://qq.group/link">官方QQ群</a></li>
+                        <li><a href="https://bilibili.com/channel">Bilibili频道</a></li>
+                        <li><a href="https://github.com/repo">GitHub仓库</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>关于</h4>
+                    <ul class="footer-links">
+                        <li><a href="/about.html">关于项目</a></li>
+                        <li><a href="/team.html">开发团队</a></li>
+                        <li><a href="/support.html">支持我们</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 工业革命：新纪元 项目组。保留所有权利。
+            </div>
+        </div>
+    </footer>
+
+    <!-- 链接导航栏JavaScript文件 -->
+    <script src="nav.js"></script>
+</body>
+</html>
